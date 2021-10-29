@@ -9,82 +9,10 @@
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/0.6.json", {onProgress: UnityProgress});
-
-
-      var eventAccelerationX = null;
-      var eventAccelerationY = null;
-      var eventAccelerationZ = null;
-
-      function Permission() {
-    // feature detect
-    console.log("Reqesting for permission");
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission()
-        .then(permissionState => {
-          if (permissionState === 'granted') {
-            window.addEventListener('deviceorientation', () => {});
-          }
-        })
-        .catch(console.error);
-    } else {
-      // handle regular non iOS 13+ devices
-    }
-  }
-
-
-function AddAccelerationEventX(objSource, msg)
-{
-    if(eventAccelerationX == undefined)
-    {
-        eventAccelerationX = function(event)
-        {
-            console.log(event.beta + ' m/s2');
-            unityInstance.SendMessage(objSource, msg, event.beta);
-        }
-    }
-    window.addEventListener('deviceorientation', eventAccelerationX, true);
-}
-
-function AddAccelerationEventY(objSource, msg)
-{
-    if(eventAccelerationY == undefined)
-    {
-        eventAccelerationY = function(event)
-        {
-            console.log(event.gamma + ' m/s2');
-            unityInstance.SendMessage(objSource, msg, event.gamma);
-        }
-    }
-    window.addEventListener('deviceorientation', eventAccelerationY, true);
-}
-
-function AddAccelerationEventZ(objSource, msg)
-{
-    if(eventAccelerationZ == undefined)
-    {
-        eventAccelerationZ = function(event)
-        {
-            console.log(event.alpha + ' m/s2');
-            unityInstance.SendMessage(objSource, msg, event.alpha);
-        }
-    }
-    window.addEventListener('deviceorientation', eventAccelerationZ, true);
-}
-function RemoveInputAccelerationEventX()
-{
-    if (eventAccelerationX != undefined)
-    {
-        window.removeEventListener('deviceorientation', eventAccelerationX);
-        window.removeEventListener('deviceorientation', eventAccelerationY);
-        window.removeEventListener('deviceorientation', eventAccelerationZ);
-    }
-}
-
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/0.7.json", {onProgress: UnityProgress});
     </script>
   </head>
   <body>
-    <button type="button" onclick="Permission()">Req Permission</button>
     <div class="webgl-content">
       <div id="unityContainer" style="width: 960px; height: 600px"></div>
       <div class="footer">
